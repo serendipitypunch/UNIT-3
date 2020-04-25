@@ -35,6 +35,8 @@ $('#design').change(function(){ //creates a click event that triggers when a cha
 
 
 /*** ACTIVITIES SECTION ***/
+
+let activityCostCounter = 0;
 let activityCostDiv = document.createElement("DIV"); //creates a new Div element and stores it in "activityCostDiv"
 let activityCost = document.createElement("P").textContent = 0; //creates a P element, sets it's value to 0 and stores it in "activityCost"
 activityCostDiv.append(activityCost); //appends activityCost to activityCostDiv
@@ -47,10 +49,19 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
     let clicked = e.target; //var to store the clicked checkbox input
     let clickedCost = clicked.getAttribute(`data-cost`); //stores the clicked checkbox data-cost attribute in "clickedCost"
     let clickedDateTime = clicked.getAttribute(`data-day-and-time`); //stores the clicked checkbox data-cost attribute in "clickedDateTime"
-    console.log(clickedDateTime);
+    // console.log(clickedDateTime);
 
-    /** The  ***/
+    /** Activity Cost Total ***/
+    if (clicked.checked) { //if the clicked checkbox has the property of checked then ->
+        activityCostCounter = activityCostCounter + +clickedCost; //add the total integer value of clickedCost to activityCostCounter then store it in activityCostCounter
+    } else { //else subtract the value and store
+        activityCostCounter = activityCostCounter - +clickedCost;
+    }
+    console.log(activityCostCounter);
     
+    activityCost = 'Total: $' + activityCostCounter; //concatenates a string with the value of activityCounter and stores in activityCost
+   
+    console.log(activityCost);
 
     /** To disable conflicting checkboxes ***/
     for (let i =0; i < checkboxes.length; i += 1) { //for loop the length of checkboxes
