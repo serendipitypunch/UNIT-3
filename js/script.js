@@ -2,15 +2,18 @@
 /*** BASIC INFO SECTION ***/
 const nameField = document.getElementById('name').focus(); //on page load, the cursor appears in the "Name" field, ready for a user to type
 const otherField = document.getElementById('other-title').style.display = 'none'; //hides the "other-title" field I added to the HTML
+const titleDropdown = document.getElementById('title');
 
 
-
-// $("#title").change(function(){
-
-//     if (document.querySelector('#title option[value="other"]').selected = true){
-//         console.log('Unhide!!!!');
-//     }
-// });
+/*** Event handler to hide/unhide other field***/
+$(title).change(function(){
+    const selectedJob = $('#title').val(); //stores the value of user selection in "selected"
+    if (selectedJob === 'other'){
+        console.log('Unhide!!!!');
+    } else {
+        console.log('Hide!!!!');
+    }
+});
 
 
 
@@ -71,7 +74,7 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
     }
     console.log(activityCostCounter);
     
-    activityCost = 'Total: $' + activityCostCounter; //concatenates a string with the value of activityCounter and stores in activityCost
+    activityCost = `Total: $${activityCostCounter}`; // using interpolation to concatenates a string with the value of activityCounter and stores in activityCost
    
     console.log(activityCost);
 
@@ -114,3 +117,4 @@ $("#payment").change(function(){
             $('#bitcoin').show();
         }
 });
+
