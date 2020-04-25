@@ -1,34 +1,51 @@
-
+                                      /*
+                                    */
+                                    /*
+                                  */
+                                  /*
+                                MICHAEL SHERRY
+                                TREEHOUSE TECH DEGREE - UNIT 3
+                              */
+   /* * * * * * * * * * * * * / 
+  /* * * * * * * * * * * * * /
+ /* *   *   * * *   *   * * /
 /*** BASIC INFO SECTION ***/
 const nameField = document.getElementById('name').focus(); //on page load, the cursor appears in the "Name" field, ready for a user to type
-const otherField = document.getElementById('other-title').style.display = 'none'; //hides the "other-title" field I added to the HTML
+let otherField = document.getElementById('other-title') //gets other-title and stores in otherField
+otherField.style.display = 'none'; //change otherField display property to none
+let otherFieldLabel = document.querySelector('.other-job-label') //gets .other-job-label and stores in otherField
+otherFieldLabel.style.display = 'none'; //change otherFieldLabel display property to none
 const titleDropdown = document.getElementById('title');
 
 
-/*** Event handler to hide/unhide other field***/
+/*** Event handler to hide/unhide Other field ***/
 $(title).change(function(){
     const selectedJob = $('#title').val(); //stores the value of user selection in "selected"
     if (selectedJob === 'other'){
-        console.log('Unhide!!!!');
+        // console.log('Unhide!!!!');
+        otherField.style.display = '';
+        otherFieldLabel.style.display = '';
     } else {
-        console.log('Hide!!!!');
+        // console.log('Hide!!!!');
+        otherField.style.display = 'none';
+        otherFieldLabel.style.display = 'none';
     }
 });
 
 
-
+ /* * *   * * * *   * * */
 /*** T-SHIRT SECTION ***/
 const selectAShirt = document.querySelector('#design option').hidden = true;  //hides the "select theme" option in the "Design" menu.
 let colorSelect = document.getElementById('color'); //selects the color Select by ID and stores it in "colorSelect".
-let colorOptions = colorSelect.options; //selects the option in the colorSelect dropdown menu
+let colorOptions = colorSelect.options; //selects all options in the colorSelect dropdown menu
 
 $(colorOptions).hide(); //hides all the options
 
 const opt = document.createElement('option'); // creates an option element and stores it in "opt"
 opt.value = 'selectshirt'; //sets the value of opt
 opt.text = 'Please select a T-shirt theme'; //sets the text value of opt
-opt.hidden = true;
-opt.selected = true;
+opt.hidden = true; //hides opt
+opt.selected = true; //sets opt as selected
 colorSelect.add(opt, colorSelect.options[0]); //adds opt to colorSelect as first child
 
 $('#design').change(function(){ //creates a click event that triggers when a change is made to the select element
@@ -47,17 +64,17 @@ $('#design').change(function(){ //creates a click event that triggers when a cha
         }
 });
 
-
+ /* *                   * * /
 /*** ACTIVITIES SECTION ***/
-
 let activityCostCounter = 0;
 let activityCostDiv = document.createElement('DIV'); //creates a new Div element and stores it in "activityCostDiv"
-activityCostDiv.style.paddingTop = '10px';
-let activityCost = document.createElement("P").textContent = 0; //creates a P element, sets it's value to 0 and stores it in "activityCost"
-activityCostDiv.append(activityCost); //appends activityCost to activityCostDiv
+let activityCost = document.createElement("P") //creates a P element, sets it's value to 0 and stores it in "activityCost"
+activityCost.style.paddingTop = '10px';
+activityCostDiv.appendChild(activityCost); //appends activityCost to activityCostDiv
 document.querySelector(".activities").appendChild(activityCostDiv); //appends the activityCost Div to the .activities section
 
 const checkboxes = document.querySelectorAll('.activities input'); //stores all of the activities section's checkboxes in "checkboxes"
+activityCost.textContent = `Total: $${activityCostCounter}`;
 
 /** Event Listener ***/
 document.querySelector('.activities').addEventListener('change', (e) => { //creates an event listener on .activities section and listens for a change event
@@ -77,8 +94,13 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
     activityCost = `Total: $${activityCostCounter}`; // using interpolation to concatenates a string with the value of activityCounter and stores in activityCost
    
     console.log(activityCost);
+    activityCostDiv.innerText = activityCost;
 
-    /** To disable conflicting checkboxes ***/
+/******************************************************** 
+    Still need to add message to conflicting boxes!
+********************************************************/
+
+    /** Disable conflicting checkboxes ***/
     for (let i =0; i < checkboxes.length; i += 1) { //for loop the length of checkboxes
         let checkboxDateTime = checkboxes[i].getAttribute(`data-day-and-time`); //var to store the "data-day-and-time" of each of the checkboxes
         if (clickedDateTime === checkboxDateTime && clicked !== checkboxes[i]) { //if the clickedDateTime is equal to checkboxDateTime && clicked is not equal to this iteration of checkboxes then ->
@@ -93,7 +115,7 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
 
 
 
-
+ /* * * * * * * * * * * */
 /*** PAYMENT SECTION ***/
 document.querySelector('#payment option[value="select method"]').hidden = true; //hides the "Select Payment Method" option
 document.querySelector('#payment option[value="credit card"]').selected = true; //sets the "credit card" option as selected
