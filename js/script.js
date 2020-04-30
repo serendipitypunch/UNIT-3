@@ -145,7 +145,10 @@ $("#payment").change(function(){
 /******************************************************** 
     VALIDATION SECTION
 ********************************************************/
-let emailField = document.getElementById('mail'); //selects the name field by id and stores in NameField
+let emailField = document.getElementById('mail'); //selects the name field by id and stores in emailField
+let cCNum = document.getElementById('cc-num'); //selects the cc number field by id and stores in cCNum
+let cCZip = document.getElementById('zip'); //selects the cc zip code field by id and stores in cCZip
+let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
 
 /** Name Field Validator Function ***/
 function isValidName(name) {
@@ -185,8 +188,16 @@ function creditCardCVVIsValid(cvv) {
 
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
-function masterValidate(input) {
+function masterValidate() {
     isValidName(nameField.value);
-    isValidEmail(emailField.value)
-    isChecked(clicked);
+    isValidEmail(emailField.value);
+    if (selectedPayment === "credit card") {
+        creditCardNumIsValid(cCNum);
+        creditCardZipIsValid(cCZip);
+        creditCardCVVIsValid(cCCVV)
+    }
 }
+
+$( "form" ).submit(function() {
+    masterValidate();
+});
