@@ -148,6 +148,11 @@ option {
 	border-radius: 4px;
 }
 
+.activity-total {
+	font-weight: bold;
+	padding-top: 10px;
+}
+
 .interests input {
 	margin-bottom: 0;
 }

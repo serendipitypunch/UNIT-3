@@ -9,8 +9,11 @@
    /* * * * * * * * * * * * * / 
   /* * * * * * * * * * * * * /
  /* *   *   * * *   *   * * /
-/*** BASIC INFO SECTION ***/
-const nameField = document.getElementById('name').focus(); //on page load, the cursor appears in the "Name" field, ready for a user to type
+/******************************************************** 
+    BASIC INFO SECTION
+********************************************************/
+let nameField = document.getElementById('name'); //selects the name field by id and stores in NameField
+nameField.focus(); //on page load, the cursor appears in the "Name" field, ready for a user to type
 let otherField = document.getElementById('other-title') //gets other-title and stores in otherField
 otherField.style.display = 'none'; //change otherField display property to none
 let otherFieldLabel = document.querySelector('.other-job-label') //gets .other-job-label and stores in otherField
@@ -33,8 +36,9 @@ $(title).change(function(){
 });
 
 
- /* * *   * * * *   * * */
-/*** T-SHIRT SECTION ***/
+/******************************************************** 
+    T-SHIRT SECTION
+********************************************************/
 const selectAShirt = document.querySelector('#design option').hidden = true;  //hides the "select theme" option in the "Design" menu.
 let colorSelect = document.getElementById('color'); //selects the color Select by ID and stores it in "colorSelect".
 let colorOptions = colorSelect.options; //selects all options in the colorSelect dropdown menu
@@ -64,12 +68,13 @@ $('#design').change(function(){ //creates a click event that triggers when a cha
         }
 });
 
- /* *                   * * /
-/*** ACTIVITIES SECTION ***/
+/******************************************************** 
+    ACTIVITIES SECTION
+********************************************************/
 let activityCostCounter = 0;
 let activityCostDiv = document.createElement('DIV'); //creates a new Div element and stores it in "activityCostDiv"
 let activityCost = document.createElement("P") //creates a P element, sets it's value to 0 and stores it in "activityCost"
-activityCost.style.paddingTop = '10px';
+activityCostDiv.className = 'activity-total';
 activityCostDiv.appendChild(activityCost); //appends activityCost to activityCostDiv
 document.querySelector(".activities").appendChild(activityCostDiv); //appends the activityCost Div to the .activities section
 
@@ -81,7 +86,6 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
     let clicked = e.target; //var to store the clicked checkbox input
     let clickedCost = clicked.getAttribute(`data-cost`); //stores the clicked checkbox data-cost attribute in "clickedCost"
     let clickedDateTime = clicked.getAttribute(`data-day-and-time`); //stores the clicked checkbox data-cost attribute in "clickedDateTime"
-    // console.log(clickedDateTime);
 
     /** Activity Cost Total ***/
     if (clicked.checked) { //if the clicked checkbox has the property of checked then ->
@@ -89,12 +93,9 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
     } else { //else subtract the value and store
         activityCostCounter = activityCostCounter - +clickedCost;
     }
-    console.log(activityCostCounter);
     
-    activityCost = `Total: $${activityCostCounter}`; // using interpolation to concatenates a string with the value of activityCounter and stores in activityCost
-   
-    console.log(activityCost);
-    activityCostDiv.innerText = activityCost;
+    activityCost = `Total: $${activityCostCounter}`; //using interpolation to concatenate a string with the value of activityCounter and stores in activityCost
+    activityCostDiv.textContent = activityCost; //sets activityCostDiv innerText
 
 /******************************************************** 
     Still need to add message to conflicting boxes!
@@ -115,8 +116,9 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
 
 
 
- /* * * * * * * * * * * */
-/*** PAYMENT SECTION ***/
+/******************************************************** 
+    PAYMENT SECTION
+********************************************************/
 document.querySelector('#payment option[value="select method"]').hidden = true; //hides the "Select Payment Method" option
 document.querySelector('#payment option[value="credit card"]').selected = true; //sets the "credit card" option as selected
 
@@ -140,3 +142,51 @@ $("#payment").change(function(){
         }
 });
 
+/******************************************************** 
+    VALIDATION SECTION
+********************************************************/
+let emailField = document.getElementById('mail'); //selects the name field by id and stores in NameField
+
+/** Name Field Validator Function ***/
+function isValidName(name) {
+    return /^[a-zA-Z0-9]+$/.test(name);
+}
+
+/** Email Validator Function ***/
+function isValidEmail(email) {
+    return /[^@]+@[^@.]+\.[a-z]+/i.test(email);
+}
+
+/** Activities Section Validator Function ***/
+function isChecked(check) {
+    if (check <= 1) {
+        return true
+    } else {
+        return false
+    }
+}
+
+
+
+/** CC Number Field Validator Function ***/
+function creditCardNumIsValid(number) {
+    return /\d{13,16}/.test(number);
+}
+
+/** CC Zip Code Field Validator Function ***/
+function creditCardZipIsValid(zipcode) {
+    return /\d{5}/.test(zipcode);
+}
+
+/** CC CVV Validator Function ***/
+function creditCardCVVIsValid(cvv) {
+    return /\d{3}/.test(cvv);
+}
+
+/*********************************/
+/** MASTER VALIDATION FUNCTION ***/
+function masterValidate(input) {
+    isValidName(nameField.value);
+    isValidEmail(emailField.value)
+    isChecked(clicked);
+}
