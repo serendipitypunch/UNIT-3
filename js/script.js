@@ -42,6 +42,7 @@ $(title).change(function(){
 const selectAShirt = document.querySelector('#design option').hidden = true;  //hides the "select theme" option in the "Design" menu.
 let colorSelect = document.getElementById('color'); //selects the color Select by ID and stores it in "colorSelect".
 let colorOptions = colorSelect.options; //selects all options in the colorSelect dropdown menu
+$('#colors-js-puns').hide(); //hides the color Select dropdown and title
 
 $(colorOptions).hide(); //hides all the options
 
@@ -53,6 +54,7 @@ opt.selected = true; //sets opt as selected
 colorSelect.add(opt, colorSelect.options[0]); //adds opt to colorSelect as first child
 
 $('#design').change(function(){ //creates a click event that triggers when a change is made to the select element
+    $('#colors-js-puns').show(); //shows the color select and it's title
     $(colorOptions).hide(); //clears the color options (basically a reset)
     const selectedValue = $('#design').val(); //stores the value of user selection in "selectedValue"
     if (selectedValue === 'js puns') { //if selectedValue equals "js puns" then
