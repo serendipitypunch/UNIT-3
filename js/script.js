@@ -152,13 +152,15 @@ let cCZip = document.getElementById('zip'); //selects the cc zip code field by i
 let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
 
 /** Name Field Validator Function ***/
+
 function isValidName(name) {
     return /^[a-zA-Z0-9]+$/.test(name)
 }
 
+
 /** Email Validator Function ***/
 function isValidEmail(email) {
-    return /[^@]+@[^@.]+\.[a-z]+/i.test(email)
+    return /[^@]+@[^@.]+\.[a-z]+/i.test(email);
 }
 
 /** Activities Section Validator Function ***/
@@ -170,29 +172,34 @@ function isChecked(check) {
     }
 }
 
+
+
 /** CC Number Field Validator Function ***/
 function creditCardNumIsValid(number) {
     if (/\d{13,16}/.test(number)) {
+        return true
+        console.log('Credit Card number is correct');
+    } else {
+        return false
+        console.log('Credit Card number is wrong');
+    }
 }
 
 /** CC Zip Code Field Validator Function ***/
 function creditCardZipIsValid(zipcode) {
-    return /\d{5}/.test(zipcode)
+    return /\d{5}/.test(zipcode);
 }
 
 /** CC CVV Validator Function ***/
 function creditCardCVVIsValid(cvv) {
-    return /\d{3}/.test(cvv)
+    return /\d{3}/.test(cvv);
 }
 
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
-function masterValidate() {
-    if (isValidName(nameField.value)) {
-        return true
-    } else {
-        return false
-        form.preventDefault;
+function masterValidate(e) {
+    if (!isValidName(nameField.value)) {
+        e.preventDefault();
     }
 
     
@@ -205,12 +212,11 @@ function masterValidate() {
 }
 
 form.addEventListener('submit', (e) => {
-    masterValidate();
-    // e.preventDefault;
+    masterValidate(e);
 });
 
 
-/*
+
     // var $regexname=/^[a-zA-Z0-9]+$/;
     // $('#name').on('keypress keydown keyup',function(){
     //          if (!$(this).val().match($regexname)) {
@@ -220,4 +226,3 @@ form.addEventListener('submit', (e) => {
     //             console.log('Right');   
     //            }
     //      });
-*/
