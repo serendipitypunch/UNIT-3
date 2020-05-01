@@ -190,15 +190,17 @@ function creditCardCVVIsValid(cvv) {
 /** MASTER VALIDATION FUNCTION ***/
 /*********************************/
 function masterValidate(e) {
+    $('.error-message').remove();
     let numberOfCheckedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length
     if (!isValidName(nameField.value)) { //Check name field
         e.preventDefault();
-        nameField.style.border = '2px solid rgb(255, 0, 0)';
-
-        let $tooltip = $('<h5>Please enter a username</5>');
-        $(nameField).insertAfter($tooltip);
-
         
+        let nameParent = nameField.parentNode;
+        nameField.style.border = '2px solid rgb(255, 0, 0)';
+        let nameErrorMessage = document.createElement("DIV")
+        nameErrorMessage.className = "error-message";
+        nameErrorMessage.innerHTML =  '<h5>Error Message!</h5>';
+        $('#name').after(nameErrorMessage);
     }
 
     if (!isValidEmail(emailField.value)) { //Check email field

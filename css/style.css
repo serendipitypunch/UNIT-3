@@ -172,6 +172,28 @@ option {
 }
 
 /* ================================= 
+  Error Message
+==================================== */
+.error-message {
+	background-color: #ff0000;
+	color: #fff;
+	width: fit-content;
+	margin-left: 3px;
+}
+
+.error-message h5 {
+	padding: 5px;
+	margin-top: 0px;
+}
+
+
+
+
+
+
+
+
+/* ================================= 
   Helper Classes
 ==================================== */
 
