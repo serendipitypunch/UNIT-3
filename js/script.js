@@ -121,6 +121,7 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
 ********************************************************/
 document.querySelector('#payment option[value="select method"]').hidden = true; //hides the "Select Payment Method" option
 document.querySelector('#payment option[value="credit card"]').selected = true; //sets the "credit card" option as selected
+let selectedPayment = $('#payment').val(); //gets value of payment select and stores in selectedPayment
 
 $('#paypal').hide(); //hides the paypal div
 $('#bitcoin').hide(); //hides the bitcoin div
@@ -147,6 +148,8 @@ $("#payment").change(function(){
 ********************************************************/
 let form = document.querySelector('form');
 let emailField = document.getElementById('mail'); //selects the name field by id and stores in emailField
+
+
 let cCNum = document.getElementById('cc-num'); //selects the cc number field by id and stores in cCNum
 let cCZip = document.getElementById('zip'); //selects the cc zip code field by id and stores in cCZip
 let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
@@ -198,17 +201,27 @@ function creditCardCVVIsValid(cvv) {
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
 function masterValidate(e) {
-    if (!isValidName(nameField.value)) {
+    if (!isValidName(nameField.value)) { //Check name field
         e.preventDefault();
+        console.log('Wrong Name!');
     }
 
-    
-    // isValidEmail(emailField.value);
-    // if (selectedPayment === "credit card") {
-    //     creditCardNumIsValid(cCNum);
-    //     creditCardZipIsValid(cCZip);
-    //     creditCardCVVIsValid(cCCVV)
-    // }
+    if (!isValidEmail(emailField.value)) { //Check email field
+        e.preventDefault();
+        console.log('Wrong Email!');
+    }
+
+
+    if ($('#payment').val() === "credit card") { //check if cc is selected
+        if (!creditCardNumIsValid(cCNum)) { //Check CC num field
+            e.preventDefault();
+            console.log('Wrong CC Num!');
+        }
+        
+        
+        // creditCardZipIsValid(cCZip);
+        // creditCardCVVIsValid(cCCVV)
+    }
 }
 
 form.addEventListener('submit', (e) => {
