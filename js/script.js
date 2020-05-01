@@ -44,7 +44,7 @@ let colorSelect = document.getElementById('color'); //selects the color Select b
 let colorOptions = colorSelect.options; //selects all options in the colorSelect dropdown menu
 $('#colors-js-puns').hide(); //hides the color Select dropdown and title
 
-$(colorOptions).hide(); //hides all the options
+$(colorOptions).hide(); //hides all the  color options
 
 const opt = document.createElement('option'); // creates an option element and stores it in "opt"
 opt.value = 'selectshirt'; //sets the value of opt
@@ -147,15 +147,24 @@ $("#payment").change(function(){
 /******************************************************** 
     VALIDATION SECTION
 ********************************************************/
+let form = document.querySelector('form');
 let emailField = document.getElementById('mail'); //selects the name field by id and stores in emailField
 let cCNum = document.getElementById('cc-num'); //selects the cc number field by id and stores in cCNum
 let cCZip = document.getElementById('zip'); //selects the cc zip code field by id and stores in cCZip
 let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
 
 /** Name Field Validator Function ***/
+
 function isValidName(name) {
-    return /^[a-zA-Z0-9]+$/.test(name);
+    if (/^[a-zA-Z0-9]+$/.test(name)) {
+        return true
+        console.log('Name is correct');
+    } else {
+        return preventDefault();
+        console.log('Name is wrong');
+    }
 }
+
 
 /** Email Validator Function ***/
 function isValidEmail(email) {
@@ -175,7 +184,13 @@ function isChecked(check) {
 
 /** CC Number Field Validator Function ***/
 function creditCardNumIsValid(number) {
-    return /\d{13,16}/.test(number);
+    if (/\d{13,16}/.test(number)) {
+        return true
+        console.log('Credit Card number is correct');
+    } else {
+        return false
+        console.log('Credit Card number is wrong');
+    }
 }
 
 /** CC Zip Code Field Validator Function ***/
@@ -191,15 +206,36 @@ function creditCardCVVIsValid(cvv) {
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
 function masterValidate() {
-    isValidName(nameField.value);
-    isValidEmail(emailField.value);
-    if (selectedPayment === "credit card") {
-        creditCardNumIsValid(cCNum);
-        creditCardZipIsValid(cCZip);
-        creditCardCVVIsValid(cCCVV)
+    if (isValidName(nameField.value)) {
+        return true
+    } else {
+        form.preventDefault;
     }
+
+    
+    // isValidEmail(emailField.value);
+    // if (selectedPayment === "credit card") {
+    //     creditCardNumIsValid(cCNum);
+    //     creditCardZipIsValid(cCZip);
+    //     creditCardCVVIsValid(cCCVV)
+    // }
 }
 
-$( "form" ).submit(function() {
+form.addEventListener('submit', (e) => {
     masterValidate();
+    // if(isValidName(nameField.value) === false) {
+    //     e.preventDefault();
+    // }
 });
+
+
+
+    // var $regexname=/^[a-zA-Z0-9]+$/;
+    // $('#name').on('keypress keydown keyup',function(){
+    //          if (!$(this).val().match($regexname)) {
+    //             console.log('Wrong');
+    //          }
+    //        else{
+    //             console.log('Right');   
+    //            }
+    //      });
