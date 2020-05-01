@@ -148,18 +148,14 @@ $("#payment").change(function(){
 ********************************************************/
 let form = document.querySelector('form');
 let emailField = document.getElementById('mail'); //selects the name field by id and stores in emailField
-
-
 let cCNum = document.getElementById('cc-num'); //selects the cc number field by id and stores in cCNum
 let cCZip = document.getElementById('zip'); //selects the cc zip code field by id and stores in cCZip
 let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
 
 /** Name Field Validator Function ***/
-
 function isValidName(name) {
     return /^[a-zA-Z0-9]+$/.test(name)
 }
-
 
 /** Email Validator Function ***/
 function isValidEmail(email) {
@@ -168,14 +164,12 @@ function isValidEmail(email) {
 
 /** Activities Section Validator Function ***/
 function isChecked(check) {
-    if (check >= 1) {
+    if (check >= 1) { //if check is greater than or equal to 1 then ->
         return true
     } else {
         return false
     }
 }
-
-
 
 /** CC Number Field Validator Function ***/
 function creditCardNumIsValid(number) {
@@ -194,12 +188,17 @@ function creditCardCVVIsValid(cvv) {
 
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
-
+/*********************************/
 function masterValidate(e) {
     let numberOfCheckedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length
     if (!isValidName(nameField.value)) { //Check name field
         e.preventDefault();
-        console.log('Wrong Name!');
+        nameField.style.border = '2px solid rgb(255, 0, 0)';
+
+        let $tooltip = $('<h5>Please enter a username</5>');
+        $(nameField).insertAfter($tooltip);
+
+        
     }
 
     if (!isValidEmail(emailField.value)) { //Check email field
