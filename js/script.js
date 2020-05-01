@@ -163,12 +163,12 @@ function isValidName(name) {
 
 /** Email Validator Function ***/
 function isValidEmail(email) {
-    return /[^@]+@[^@.]+\.[a-z]+/i.test(email);
+    return /[^@]+@[^@.]+\.[a-z]+/i.test(email)
 }
 
 /** Activities Section Validator Function ***/
 function isChecked(check) {
-    if (check <= 1) {
+    if (check >= 1) {
         return true
     } else {
         return false
@@ -179,28 +179,24 @@ function isChecked(check) {
 
 /** CC Number Field Validator Function ***/
 function creditCardNumIsValid(number) {
-    if (/\d{13,16}/.test(number)) {
-        return true
-        console.log('Credit Card number is correct');
-    } else {
-        return false
-        console.log('Credit Card number is wrong');
-    }
+    return /\d{13,16}/.test(number)
 }
 
 /** CC Zip Code Field Validator Function ***/
 function creditCardZipIsValid(zipcode) {
-    return /\d{5}/.test(zipcode);
+    return /\d{5}/.test(zipcode)
 }
 
 /** CC CVV Validator Function ***/
 function creditCardCVVIsValid(cvv) {
-    return /\d{3}/.test(cvv);
+    return /\d{3}/.test(cvv)
 }
 
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
+
 function masterValidate(e) {
+    let numberOfCheckedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length
     if (!isValidName(nameField.value)) { //Check name field
         e.preventDefault();
         console.log('Wrong Name!');
@@ -211,16 +207,25 @@ function masterValidate(e) {
         console.log('Wrong Email!');
     }
 
+    if (!isChecked(numberOfCheckedBoxes)) { //Check to see if at least one activity section is checked field
+        e.preventDefault();
+        console.log('Check One!');
+    }
 
     if ($('#payment').val() === "credit card") { //check if cc is selected
         if (!creditCardNumIsValid(cCNum)) { //Check CC num field
             e.preventDefault();
             console.log('Wrong CC Num!');
         }
-        
-        
-        // creditCardZipIsValid(cCZip);
-        // creditCardCVVIsValid(cCCVV)
+        if (!creditCardZipIsValid(cCZip)) { //Check CC num field
+            e.preventDefault();
+            console.log('Wrong CC Zip!');
+        }
+        if (!creditCardCVVIsValid(cCCVV)) { //Check CC num field
+            e.preventDefault();
+            console.log('Wrong CC Zip!');
+        }
+
     }
 }
 
