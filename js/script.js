@@ -1,14 +1,12 @@
-                                      /*
-                                    */
                                     /*
                                   */
                                   /*
-                                MICHAEL SHERRY
-                                TREEHOUSE TECH DEGREE - UNIT 3
-                              */
-   /* * * * * * * * * * * * * / 
-  /* * * * * * * * * * * * * /
- /* *   *   * * *   *   * * /
+                                */
+                                /*
+                            MICHAEL SHERRY
+                            TREEHOUSE TECH DEGREE - UNIT 3
+                            */
+ /* * * * * * * * * * * * * / 
 /******************************************************** 
     BASIC INFO SECTION
 ********************************************************/
@@ -156,13 +154,7 @@ let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and
 /** Name Field Validator Function ***/
 
 function isValidName(name) {
-    if (/^[a-zA-Z0-9]+$/.test(name)) {
-        return true
-        console.log('Name is correct');
-    } else {
-        return preventDefault();
-        console.log('Name is wrong');
-    }
+    return /^[a-zA-Z0-9]+$/.test(name)
 }
 
 
@@ -209,6 +201,7 @@ function masterValidate() {
     if (isValidName(nameField.value)) {
         return true
     } else {
+        return false
         form.preventDefault;
     }
 
@@ -223,9 +216,7 @@ function masterValidate() {
 
 form.addEventListener('submit', (e) => {
     masterValidate();
-    // if(isValidName(nameField.value) === false) {
-    //     e.preventDefault();
-    // }
+    // e.preventDefault;
 });
 
 
