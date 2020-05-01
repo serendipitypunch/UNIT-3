@@ -187,26 +187,12 @@ function creditCardCVVIsValid(cvv) {
 
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
-<<<<<<< HEAD
-function masterValidate(e) {
-    console.log('working!');
-
-    if (!isValidName(nameField.value)) {
-        e.preventDefault();
-        console.log('Thats the wrong name');
-    }
-    
-    if (!isValidName(emailField.value)) {
-        e.preventDefault();
-        console.log('Thats the wrong name');
-=======
 function masterValidate() {
     if (isValidName(nameField.value)) {
         return true
     } else {
         return false
         form.preventDefault;
->>>>>>> parent of 2e27a17... Starting to work
     }
 
     
@@ -219,12 +205,8 @@ function masterValidate() {
 }
 
 form.addEventListener('submit', (e) => {
-<<<<<<< HEAD
-    masterValidate(e);
-=======
     masterValidate();
     // e.preventDefault;
->>>>>>> parent of 2e27a17... Starting to work
 });
 
 
