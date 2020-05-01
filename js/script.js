@@ -197,12 +197,12 @@ function creditCardCVVIsValid(cvv) {
 
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
-function masterValidate() {
+function masterValidate(e) {
     if (isValidName(nameField.value)) {
         return true
     } else {
         return false
-        form.preventDefault;
+        e.preventDefault;
     }
 
     
@@ -215,8 +215,11 @@ function masterValidate() {
 }
 
 form.addEventListener('submit', (e) => {
-    masterValidate();
-    // e.preventDefault;
+    console.log('working!');
+    // e.preventDefault();
+    if (!isValidName(nameField.value)) {
+    e.preventDefault();
+    }
 });
 
 
