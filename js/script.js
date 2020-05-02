@@ -22,14 +22,12 @@ const titleDropdown = document.getElementById('title');
 /*** Event handler to hide/unhide Other field ***/
 $(title).change(function(){
     const selectedJob = $('#title').val(); //stores the value of user selection in "selected"
-    if (selectedJob === 'other'){
-        // console.log('Unhide!!!!');
-        otherField.style.display = '';
-        otherFieldLabel.style.display = '';
+    if (selectedJob === 'other'){ //if the value of selectedJob is other then ->
+        otherField.style.display = ''; //show the otherField
+        otherFieldLabel.style.display = ''; //show the otherField label
     } else {
-        // console.log('Hide!!!!');
-        otherField.style.display = 'none';
-        otherFieldLabel.style.display = 'none';
+        otherField.style.display = 'none'; // //hide the otherField
+        otherFieldLabel.style.display = 'none'; //hide the otherField
     }
 });
 
@@ -156,6 +154,9 @@ let activitySection = document.querySelector('fieldset.activities');
 let cCNum = document.getElementById('cc-num'); //selects the cc number field by id and stores in cCNum
 let cCZip = document.getElementById('zip'); //selects the cc zip code field by id and stores in cCZip
 let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
+const fieldOriginalBorderColor = '2px solid rgb(111, 157, 220)'; //a variable to store the original field border color
+const fieldErrorBorderColor = '2px solid rgb(255, 0, 0)'; //a variable to store the original field border color
+
 
 
 /** Name Field Validator Function ***/
@@ -195,102 +196,113 @@ function creditCardCVVIsValid(cvv) {
 /*********************************/
 /** CREATE ERROR MESSAGE FUNCTION ***/
 /*********************************/
-function createErrorMessage(caller, message) {
+function createErrorMessage(caller, message, idName) {
     let nameErrorMessage = document.createElement("DIV")
         nameErrorMessage.className = "error-message";
         nameErrorMessage.innerHTML =  `<h5>${message}</h5>`;
+        nameErrorMessage.id = `${idName}`;
         $(caller).after(nameErrorMessage);
 }
-
-
-
 
 /*********************************/
 /** MASTER VALIDATION FUNCTION ***/
 /*********************************/
 function masterValidate(e) {
-    const fieldBorderColor = '2px solid rgb(111, 157, 220)'; //a variable to store the original field border color
-    $('.error-message').remove(); //a removes any error messages (basically a reset)
-    let numberOfCheckedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length
+    // const fieldBorderColor = '2px solid rgb(111, 157, 220)'; //a variable to store the original field border color
+    let numberOfCheckedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length //gets the total number of checked boxes and stores in "numberOfCheckedBoxes"
     
 
     if (!isValidName(nameField.value)) { //Check name field
-        e.preventDefault();
-        nameField.style.border = '2px solid rgb(255, 0, 0)';
-        createErrorMessage('#name', 'Please type a name');
+        e.preventDefault(); //prevents form from submitting
+        nameField.style.border = fieldErrorBorderColor; //sets border to red
+        createErrorMessage('#name', 'Please type a name'); //calls the createErrorMessage function
     } else {
-        nameField.style.border = fieldBorderColor;
+        nameField.style.border = fieldOriginalBorderColor; //sets border back to original color
     }
 
     if (!isValidEmail(emailField.value)) { //Check email field
-        e.preventDefault();
-        emailField.style.border = '2px solid rgb(255, 0, 0)';
-        
-        createErrorMessage('#mail', 'Enter a valid email');
+        e.preventDefault(); //prevents form from submitting
+        emailField.style.border = fieldErrorBorderColor; //sets border to red
+        createErrorMessage('#mail', 'Enter a valid email', 'mail-error'); //calls the createErrorMessage function
     } else {
-        emailField.style.border = fieldBorderColor;
+        emailField.style.border = fieldOriginalBorderColor; //sets border back to original color
     }
 
     if (!isChecked(numberOfCheckedBoxes)) { //Check to see if at least one activity section is checked field
-        e.preventDefault();
-        // activitySection.style.border = '2px solid rgb(255, 0, 0)';
-
-        createErrorMessage('.activities', 'Select at least one activity');
-    } else {
-        // activitySection.style.border = 'none';
+        e.preventDefault(); //prevents form from submitting
+        createErrorMessage('.activities', 'Select at least one activity', 'check-error');
     }
 
 
     /*************** Credit Card Call ************************/
     if ($('#payment').val() === "credit card") { //check if cc is selected
         if (!creditCardNumIsValid(cCNum.value)) { //Check CC num field
-            e.preventDefault();
-            cCNum.style.border = '2px solid rgb(255, 0, 0)';
-        
-            createErrorMessage('#cc-num', 'Enter a valid credit card number');
+            e.preventDefault(); //prevents form from submitting
+            cCNum.style.border = fieldErrorBorderColor; //sets border to red
+            createErrorMessage('#cc-num', 'Enter a valid credit card number'); //calls the createErrorMessage function
         } else {
-            cCNum.style.border = fieldBorderColor;
+            cCNum.style.border = fieldOriginalBorderColor; //sets border back to original color
         }
 
 
 
         if (!creditCardZipIsValid(cCZip.value)) { //Check CC num field
-            e.preventDefault();
-            cCZip.style.border = '2px solid rgb(255, 0, 0)';
-        
-            createErrorMessage('#zip', 'Enter your Zip code');
+            e.preventDefault(); //prevents form from submitting
+            cCZip.style.border = fieldErrorBorderColor; //sets border to red
+            createErrorMessage('#zip', 'Enter your Zip code'); //calls the createErrorMessage function
         } else {
-            cCZip.style.border = fieldBorderColor;
+            cCZip.style.border = fieldOriginalBorderColor; //sets border back to original color
         }
 
 
 
         if (!creditCardCVVIsValid(cCCVV.value)) { //Check CC num field
-            e.preventDefault();
-            cCCVV.style.border = '2px solid rgb(255, 0, 0)';
-        
-            createErrorMessage('#cvv', 'Enter your 3-digit CVV number');
+            e.preventDefault(); //prevents form from submitting
+            cCCVV.style.border = fieldErrorBorderColor; //sets border to red
+            createErrorMessage('#cvv', 'Enter your 3-digit CVV number'); //calls the createErrorMessage function
         } else {
-            cCCVV.style.border = fieldBorderColor;
+            cCCVV.style.border = fieldOriginalBorderColor; //sets border back to original color
         }
     }
 }
 
+
+/*********************************/
+/** EVENT HANDLERS ***/
+/*********************************/
+
+/*************** Form Submit Event Handler ************************/
 form.addEventListener('submit', (e) => {
+    $('.error-message').remove(); //a removes any error messages (basically a reset)
     masterValidate(e);
+});
+
+/*************** Email Field Input Event Handler ************************/
+createErrorMessage('#mail', 'Must be valid email', 'mail-error') //creates an error message for the email field
+$('#mail-error').hide() //hides this error message
+emailField.addEventListener('input', (e) => { //adds and event listener to the email field and listens for input event
+    if (emailField.value.length === 1) { //if email field content value is equal to one then ->
+        $('#mail-error').show(); //show email error message
+        emailField.style.border = fieldErrorBorderColor; //sets border color to red
+    } else if (emailField.value.length > 1 && emailField.value.length < 4) { //else if email field content value is between 2 and 3 then ->
+        $('#mail-error').html('<h5>Email is still too short</h5>'); //change error message
+    } else if (emailField.value.length === 0) { //else if email field content value is equal to 0 then ->
+        $('#mail-error').hide(); //hide error message
+        emailField.style.border = fieldOriginalBorderColor; //reset border color
+    } else if (isValidEmail(emailField.value)) { //else if emailField validates then ->
+        $('#mail-error').hide(); //hide error message
+        emailField.style.border = fieldOriginalBorderColor; //reset border color
+    } else if (!isValidEmail(emailField.value)) { //else if emailField does not validate then ->
+        $('#mail-error').html('<h5>Must be a valid email</h5>') //change error message
+            .show();
+            emailField.style.border = fieldErrorBorderColor;
+    } else { //else ->
+        $('#mail-error').html('<h5>Still not the right format!</h5>'); //change error message
+    }
 });
 
 
 
-    // var $regexname=/^[a-zA-Z0-9]+$/;
-    // $('#name').on('keypress keydown keyup',function(){
-    //          if (!$(this).val().match($regexname)) {
-    //             console.log('Wrong');
-    //          }
-    //        else{
-    //             console.log('Right');   
-    //            }
-    //      });
 
 
     /****** WORKING ERROR MESSAGE ******/
