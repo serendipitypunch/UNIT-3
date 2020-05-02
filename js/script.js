@@ -31,7 +31,6 @@ $(title).change(function(){
     }
 });
 
-
 /******************************************************** 
     T-SHIRT SECTION
 ********************************************************/
@@ -79,13 +78,13 @@ document.querySelector(".activities").appendChild(activityCostDiv); //appends th
 const checkboxes = document.querySelectorAll('.activities input'); //stores all of the activities section's checkboxes in "checkboxes"
 activityCost.textContent = `Total: $${activityCostCounter}`;
 
-/** Event Listener ***/
+/*** Event Listener ***/
 document.querySelector('.activities').addEventListener('change', (e) => { //creates an event listener on .activities section and listens for a change event
     let clicked = e.target; //var to store the clicked checkbox input
     let clickedCost = clicked.getAttribute(`data-cost`); //stores the clicked checkbox data-cost attribute in "clickedCost"
     let clickedDateTime = clicked.getAttribute(`data-day-and-time`); //stores the clicked checkbox data-cost attribute in "clickedDateTime"
 
-    /** Activity Cost Total ***/
+    /*** Activity Cost Total ***/
     if (clicked.checked) { //if the clicked checkbox has the property of checked then ->
         activityCostCounter = activityCostCounter + +clickedCost; //add the total integer value of clickedCost to activityCostCounter then store it in activityCostCounter
     } else { //else subtract the value and store
@@ -95,11 +94,7 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
     activityCost = `Total: $${activityCostCounter}`; //using interpolation to concatenate a string with the value of activityCounter and stores in activityCost
     activityCostDiv.textContent = activityCost; //sets activityCostDiv innerText
 
-/******************************************************** 
-    Still need to add message to conflicting boxes!
-********************************************************/
-
-    /** Disable conflicting checkboxes ***/
+    /*** Disable conflicting checkboxes ***/
     for (let i =0; i < checkboxes.length; i += 1) { //for loop the length of checkboxes
         let checkboxDateTime = checkboxes[i].getAttribute(`data-day-and-time`); //var to store the "data-day-and-time" of each of the checkboxes
         if (clickedDateTime === checkboxDateTime && clicked !== checkboxes[i]) { //if the clickedDateTime is equal to checkboxDateTime && clicked is not equal to this iteration of checkboxes then ->
@@ -115,8 +110,6 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
         }
       }
 });
-
-
 
 /******************************************************** 
     PAYMENT SECTION
@@ -156,7 +149,6 @@ let cCZip = document.getElementById('zip'); //selects the cc zip code field by i
 let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
 const fieldOriginalBorderColor = '2px solid rgb(111, 157, 220)'; //a variable to store the original field border color
 const fieldErrorBorderColor = '2px solid rgb(255, 0, 0)'; //a variable to store the original field border color
-
 
 
 /** Name Field Validator Function ***/
@@ -233,7 +225,6 @@ function masterValidate(e) {
         createErrorMessage('.activities', 'Select at least one activity', 'check-error');
     }
 
-
     /*************** Credit Card Call ************************/
     if ($('#payment').val() === "credit card") { //check if cc is selected
         if (!creditCardNumIsValid(cCNum.value)) { //Check CC num field
@@ -244,8 +235,6 @@ function masterValidate(e) {
             cCNum.style.border = fieldOriginalBorderColor; //sets border back to original color
         }
 
-
-
         if (!creditCardZipIsValid(cCZip.value)) { //Check CC num field
             e.preventDefault(); //prevents form from submitting
             cCZip.style.border = fieldErrorBorderColor; //sets border to red
@@ -253,8 +242,6 @@ function masterValidate(e) {
         } else {
             cCZip.style.border = fieldOriginalBorderColor; //sets border back to original color
         }
-
-
 
         if (!creditCardCVVIsValid(cCCVV.value)) { //Check CC num field
             e.preventDefault(); //prevents form from submitting
@@ -265,7 +252,6 @@ function masterValidate(e) {
         }
     }
 }
-
 
 /*********************************/
 /** EVENT HANDLERS ***/
@@ -300,13 +286,3 @@ emailField.addEventListener('input', (e) => { //adds and event listener to the e
         $('#mail-error').html('<h5>Still not the right format!</h5>'); //change error message
     }
 });
-
-
-
-
-
-    /****** WORKING ERROR MESSAGE ******/
-        // let nameErrorMessage = document.createElement("DIV")
-        // nameErrorMessage.className = "error-message";
-        // nameErrorMessage.innerHTML =  '<h5>Error Message!</h5>';
-        // $('#name').after(nameErrorMessage);
