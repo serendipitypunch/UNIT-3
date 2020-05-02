@@ -107,8 +107,12 @@ document.querySelector('.activities').addEventListener('change', (e) => { //crea
         if (clickedDateTime === checkboxDateTime && clicked !== checkboxes[i]) { //if the clickedDateTime is equal to checkboxDateTime && clicked is not equal to this iteration of checkboxes then ->
           if (clicked.checked) { //if clicked is checked
             checkboxes[i].disabled = true; //change checkboxes disabled property to true
+            checkboxes[i].parentElement.style.color = '#fff'; //changes the disabled checkbox text to white
+            checkboxes[i].parentElement.style.textDecoration = 'line-through black'; //crosses out the disabled checkboxes
           } else {
             checkboxes[i].disabled = false; // else change checkboxes disabled property to false
+            checkboxes[i].parentElement.style.color = ''; //removes the checkbox text color style
+            checkboxes[i].parentElement.style.textDecoration = ''; //removes the checkbox text decoration style
           }
         }
       }
@@ -236,8 +240,10 @@ function masterValidate(e) {
         // activitySection.style.border = 'none';
     }
 
+
+    /*************** Credit Card Call ************************/
     if ($('#payment').val() === "credit card") { //check if cc is selected
-        if (!creditCardNumIsValid(cCNum)) { //Check CC num field
+        if (!creditCardNumIsValid(cCNum.value)) { //Check CC num field
             e.preventDefault();
             cCNum.style.border = '2px solid rgb(255, 0, 0)';
         
@@ -248,7 +254,7 @@ function masterValidate(e) {
 
 
 
-        if (!creditCardZipIsValid(cCZip)) { //Check CC num field
+        if (!creditCardZipIsValid(cCZip.value)) { //Check CC num field
             e.preventDefault();
             cCZip.style.border = '2px solid rgb(255, 0, 0)';
         
@@ -259,7 +265,7 @@ function masterValidate(e) {
 
 
 
-        if (!creditCardCVVIsValid(cCCVV)) { //Check CC num field
+        if (!creditCardCVVIsValid(cCCVV.value)) { //Check CC num field
             e.preventDefault();
             cCCVV.style.border = '2px solid rgb(255, 0, 0)';
         
