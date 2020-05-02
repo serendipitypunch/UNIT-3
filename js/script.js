@@ -148,9 +148,11 @@ $("#payment").change(function(){
 ********************************************************/
 let form = document.querySelector('form');
 let emailField = document.getElementById('mail'); //selects the name field by id and stores in emailField
+let activitySection = document.querySelector('fieldset.activities');
 let cCNum = document.getElementById('cc-num'); //selects the cc number field by id and stores in cCNum
 let cCZip = document.getElementById('zip'); //selects the cc zip code field by id and stores in cCZip
 let cCCVV = document.getElementById('cvv'); //selects the cc cvv field by id and stores in cCCVV
+
 
 /** Name Field Validator Function ***/
 function isValidName(name) {
@@ -187,46 +189,84 @@ function creditCardCVVIsValid(cvv) {
 }
 
 /*********************************/
+/** CREATE ERROR MESSAGE FUNCTION ***/
+/*********************************/
+function createErrorMessage(caller, message) {
+    let nameErrorMessage = document.createElement("DIV")
+        nameErrorMessage.className = "error-message";
+        nameErrorMessage.innerHTML =  `<h5>${message}</h5>`;
+        $(caller).after(nameErrorMessage);
+}
+
+
+
+
+/*********************************/
 /** MASTER VALIDATION FUNCTION ***/
 /*********************************/
 function masterValidate(e) {
-    $('.error-message').remove();
+    const fieldBorderColor = '2px solid rgb(111, 157, 220)'; //a variable to store the original field border color
+    $('.error-message').remove(); //a removes any error messages (basically a reset)
     let numberOfCheckedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length
+    
+
     if (!isValidName(nameField.value)) { //Check name field
         e.preventDefault();
-        
-        let nameParent = nameField.parentNode;
         nameField.style.border = '2px solid rgb(255, 0, 0)';
-        let nameErrorMessage = document.createElement("DIV")
-        nameErrorMessage.className = "error-message";
-        nameErrorMessage.innerHTML =  '<h5>Error Message!</h5>';
-        $('#name').after(nameErrorMessage);
+        createErrorMessage('#name', 'Please type a name');
+    } else {
+        nameField.style.border = fieldBorderColor;
     }
 
     if (!isValidEmail(emailField.value)) { //Check email field
         e.preventDefault();
-        console.log('Wrong Email!');
+        emailField.style.border = '2px solid rgb(255, 0, 0)';
+        
+        createErrorMessage('#mail', 'Enter a valid email');
+    } else {
+        emailField.style.border = fieldBorderColor;
     }
 
     if (!isChecked(numberOfCheckedBoxes)) { //Check to see if at least one activity section is checked field
         e.preventDefault();
-        console.log('Check One!');
+        // activitySection.style.border = '2px solid rgb(255, 0, 0)';
+
+        createErrorMessage('.activities', 'Select at least one activity');
+    } else {
+        // activitySection.style.border = 'none';
     }
 
     if ($('#payment').val() === "credit card") { //check if cc is selected
         if (!creditCardNumIsValid(cCNum)) { //Check CC num field
             e.preventDefault();
-            console.log('Wrong CC Num!');
-        }
-        if (!creditCardZipIsValid(cCZip)) { //Check CC num field
-            e.preventDefault();
-            console.log('Wrong CC Zip!');
-        }
-        if (!creditCardCVVIsValid(cCCVV)) { //Check CC num field
-            e.preventDefault();
-            console.log('Wrong CC Zip!');
+            cCNum.style.border = '2px solid rgb(255, 0, 0)';
+        
+            createErrorMessage('#cc-num', 'Enter a valid credit card number');
+        } else {
+            cCNum.style.border = fieldBorderColor;
         }
 
+
+
+        if (!creditCardZipIsValid(cCZip)) { //Check CC num field
+            e.preventDefault();
+            cCZip.style.border = '2px solid rgb(255, 0, 0)';
+        
+            createErrorMessage('#zip', 'Enter your Zip code');
+        } else {
+            cCZip.style.border = fieldBorderColor;
+        }
+
+
+
+        if (!creditCardCVVIsValid(cCCVV)) { //Check CC num field
+            e.preventDefault();
+            cCCVV.style.border = '2px solid rgb(255, 0, 0)';
+        
+            createErrorMessage('#cvv', 'Enter your 3-digit CVV number');
+        } else {
+            cCCVV.style.border = fieldBorderColor;
+        }
     }
 }
 
@@ -245,3 +285,10 @@ form.addEventListener('submit', (e) => {
     //             console.log('Right');   
     //            }
     //      });
+
+
+    /****** WORKING ERROR MESSAGE ******/
+        // let nameErrorMessage = document.createElement("DIV")
+        // nameErrorMessage.className = "error-message";
+        // nameErrorMessage.innerHTML =  '<h5>Error Message!</h5>';
+        // $('#name').after(nameErrorMessage);
