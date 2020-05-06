@@ -264,7 +264,7 @@ form.addEventListener('submit', (e) => {
 });
 
 /*************** Email Field Input Event Handler ************************/
-createErrorMessage('#mail', 'Must be valid email', 'mail-error') //creates an error message for the email field
+createErrorMessage('#mail', 'Must be a valid email', 'mail-error') //creates an error message for the email field
 $('#mail-error').hide() //hides this error message
 emailField.addEventListener('input', (e) => { //adds and event listener to the email field and listens for input event
     if (emailField.value.length === 1) { //if email field content value is equal to one then ->
@@ -274,7 +274,7 @@ emailField.addEventListener('input', (e) => { //adds and event listener to the e
         $('#mail-error').html('<h5>Email is still too short</h5>'); //change error message
     } else if (emailField.value.length === 0) { //else if email field content value is equal to 0 then ->
         $('#mail-error').hide(); //hide error message
-        $('#mail-error').html('<h5>Must be a valid email</h5>')
+        $('#mail-error').html('<h5>Lets try this again :)</h5>')
         emailField.style.border = fieldOriginalBorderColor; //reset border color
     } else if (isValidEmail(emailField.value)) { //else if emailField validates then ->
         $('#mail-error').hide(); //hide error message
