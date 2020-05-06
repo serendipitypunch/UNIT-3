@@ -172,17 +172,17 @@ function isChecked(check) {
 
 /** CC Number Field Validator Function ***/
 function creditCardNumIsValid(number) {
-    return /\d{13,16}/.test(number)
+    return /^\d{13,16}$/.test(number)
 }
 
 /** CC Zip Code Field Validator Function ***/
 function creditCardZipIsValid(zipcode) {
-    return /\d{5}/.test(zipcode)
+    return /^\d{5}$/.test(zipcode)
 }
 
 /** CC CVV Validator Function ***/
 function creditCardCVVIsValid(cvv) {
-    return /\d{3}/.test(cvv)
+    return /^\d{3}$/.test(cvv)
 }
 
 /*********************************/
@@ -274,6 +274,7 @@ emailField.addEventListener('input', (e) => { //adds and event listener to the e
         $('#mail-error').html('<h5>Email is still too short</h5>'); //change error message
     } else if (emailField.value.length === 0) { //else if email field content value is equal to 0 then ->
         $('#mail-error').hide(); //hide error message
+        $('#mail-error').html('<h5>Must be a valid email</h5>')
         emailField.style.border = fieldOriginalBorderColor; //reset border color
     } else if (isValidEmail(emailField.value)) { //else if emailField validates then ->
         $('#mail-error').hide(); //hide error message
